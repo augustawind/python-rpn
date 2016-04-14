@@ -2,12 +2,15 @@
 '''Reverse Polish Notation calculator.'''
 import math
 import re
-import sys
 from operator import *
 
-def log_error(message: str):
-    '''Print a message to stderr.'''
-    print("Error:", message, file=sys.stderr)
+class RPNError(Exception):
+    '''Exception for bad RPN input.'''
+    def __init__(self, message: str):
+        self.message = message
+
+    def __str__(self) -> str:
+        return self.message
 
 def solve_rpn(equation: str) -> float:
     '''Solve an arithmetic problem in Reverse Polish Notation.'''
@@ -27,34 +30,23 @@ def solve_rpn(equation: str) -> float:
             stack.append(unit)
         elif unit in binary_ops:
             if (len(stack) < 2):
-                log_error("Too few arguments for operator '{}'".format(unit))
-                break
+                raise RPNError("Too few arguments for operator "
+                                 "'{}'".format(unit))
 
             num = binary_ops[unit](float(stack.pop()), float(stack.pop()))
             stack.append(str(num))
         elif unit in unary_ops:
             if (len(stack) < 1):
-                log_error("Too few arguments for operator '{}'".format(unit))
-                break
+                raise RPNError("Too few arguments for operator "
+                                 "'{}'".format(unit))
 
             num = unary_ops[unit](float(stack.pop()))
             stack.append(str(num))
         else:
-            print("Error: Unknown identifier '{}'".format(unit),
-                  file=sys.stderr)
-            break
+            raise RPNError("Unknown identifier '{}'".format(unit))
     else:
         if (len(stack) > 1):
-            log_error("No remaining operator(s) for numbers "
-                      "{}".format(', '.join(stack)))
-            return
+            raise RPNError("No remaining operator(s) for numbers "
+                             "{}".format(', '.join(stack)))
 
         return float(stack[0])
-
-if __name__ == '__main__':
-    if (len(sys.argv) < 2):
-        log_error("No equation given")
-    else:
-        result = solve_rpn(sys.argv[1])
-        if result:
-            print(result)

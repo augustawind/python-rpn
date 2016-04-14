@@ -14,4 +14,5 @@ setup(name='rpn',
       author_email='xdrohdex@gmail.com',
       license='MIT',
       packages=['rpn'],
+      scripts=['bin/rpn'],
       zip_safe=False)

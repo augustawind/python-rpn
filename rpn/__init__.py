@@ -1,1 +1,1 @@
-from .rpn import solve_rpn
+from .rpn import solve_rpn, RPNError
