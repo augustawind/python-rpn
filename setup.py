@@ -18,5 +18,4 @@ setup(name='rpn',
       scripts=['bin/rpn'],
       setup_requires=['pytest-runner'] \
         if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
-      tests_require=['pytest'],
-      zip_safe=False)
+      tests_require=['pytest'])
