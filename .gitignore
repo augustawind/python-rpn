@@ -2,5 +2,6 @@
 *.swo
 *.pyc
 dist
-*.egg-info
+*.egg*
 __pycache__
+.cache
