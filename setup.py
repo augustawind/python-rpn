@@ -1,4 +1,5 @@
 from setuptools import setup
+import sys
 
 def readme():
     with open('README.rst') as f:
@@ -15,4 +16,7 @@ setup(name='rpn',
       license='MIT',
       packages=['rpn'],
       scripts=['bin/rpn'],
+      setup_requires=['pytest-runner'] \
+        if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
+      tests_require=['pytest'],
       zip_safe=False)
