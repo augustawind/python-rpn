@@ -2,6 +2,7 @@
 *.swo
 *.pyc
 dist
+build
 *.egg*
 __pycache__
 .cache
