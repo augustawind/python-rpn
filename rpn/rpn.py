@@ -6,6 +6,7 @@ from operator import *
 
 class RPNError(Exception):
     '''Exception for bad RPN input.'''
+
     def __init__(self, message: str):
         self.message = message
 
