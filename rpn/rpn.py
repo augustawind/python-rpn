@@ -47,14 +47,14 @@ def solve_rpn(equation:str, context=decimal.DefaultContext) -> Decimal:
         elif unit in binary_ops:
             if (len(stack) < 2):
                 raise RPNError("Too few arguments for operator "
-                                 "'{}'".format(unit))
+                               "'{}'".format(unit))
 
             num = binary_ops[unit](stack.pop(), stack.pop())
             stack.append(num)
         elif unit in unary_ops:
             if (len(stack) < 1):
                 raise RPNError("Too few arguments for operator "
-                                 "'{}'".format(unit))
+                               "'{}'".format(unit))
 
             num = unary_ops[unit](stack.pop())
             stack.append(num)
@@ -63,6 +63,6 @@ def solve_rpn(equation:str, context=decimal.DefaultContext) -> Decimal:
     else:
         if (len(stack) > 1):
             raise RPNError("No remaining operator(s) for numbers "
-                             "{}".format(', '.join(map(str, stack))))
+                           "{}".format(', '.join(map(str, stack))))
 
         return stack[0]
