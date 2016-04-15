@@ -43,20 +43,20 @@ def solve_rpn(equation:str, context=decimal.DefaultContext) -> Decimal:
     stack = []
     for unit in re.split(r'\s+', equation.strip()):
         if number.match(str(unit)):
-            stack.append(unit)
+            stack.append(Decimal(unit))
         elif unit in binary_ops:
             if (len(stack) < 2):
                 raise RPNError("Too few arguments for operator "
                                  "'{}'".format(unit))
 
-            num = binary_ops[unit](Decimal(stack.pop()), Decimal(stack.pop()))
+            num = binary_ops[unit](stack.pop(), stack.pop())
             stack.append(num)
         elif unit in unary_ops:
             if (len(stack) < 1):
                 raise RPNError("Too few arguments for operator "
                                  "'{}'".format(unit))
 
-            num = unary_ops[unit](Decimal(stack.pop()))
+            num = unary_ops[unit](stack.pop())
             stack.append(num)
         else:
             raise RPNError("Unknown identifier '{}'".format(unit))
