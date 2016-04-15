@@ -2,8 +2,6 @@
 '''Reverse Polish Notation calculator.'''
 from decimal import Decimal
 import decimal
-import math
-import operator as op
 import re
 
 # Set outer limits for exponents to their limits
@@ -30,13 +28,14 @@ number = re.compile(r'''-?  # optional minus sign
 class RPNError(Exception):
     '''Exception for bad RPN input.'''
 
-    def __init__(self, message:str):
+    def __init__(self, message: str):
         self.message = message
 
     def __str__(self) -> str:
         return self.message
 
-def solve_rpn(equation:str, context=decimal.DefaultContext) -> Decimal:
+
+def solve_rpn(equation: str, context=decimal.DefaultContext) -> Decimal:
     '''Solve an arithmetic problem in Reverse Polish Notation.'''
     decimal.setcontext(context)
 
