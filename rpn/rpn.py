@@ -48,7 +48,9 @@ def solve_rpn(equation: str, context=decimal.DefaultContext) -> Decimal:
                 raise RPNError("Too few arguments for operator "
                                "'{}'".format(unit))
 
-            num = binary_ops[unit](stack.pop(), stack.pop())
+            num1 = stack.pop()
+            num2 = stack.pop()
+            num = binary_ops[unit](num2, num1)
             stack.append(num)
         elif unit in unary_ops:
             if (len(stack) < 1):
